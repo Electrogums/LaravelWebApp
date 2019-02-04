@@ -64,10 +64,9 @@ class Course extends Model
 	public function level(){
 		return $this->belongsTo(Level::class)->select('id','name');// Un curso pertenece a un Nivel
 	}
-	public function reviews(){
-		return $this->belongsTo(Review::class)->select('id','user_id','course_id','rating','comment','created_at'); // Un curso pertenece a una revisión
+	public function reviews () {
+		return $this->hasMany(Review::class)->select('id', 'user_id', 'course_id', 'rating', 'comment', 'created_at');
 	}
-
 	public function students(){
 		return $this->belongsToMany(Student::class);//Un curso pertenece a muchos estudiantes 
 	}
@@ -75,8 +74,7 @@ class Course extends Model
 		return $this->belongsTo(Teacher::class);//Un curso pertenece a un maestro.
 	}
 	public function getCustomRatingAttribute () {
-		return $this->reviews->avg('rating');
+		  return $this->reviews->avg('rating');
 	}
-
 }
 
