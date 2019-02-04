@@ -46,6 +46,10 @@ class Course extends Model
     const PENDING=2;
     const REJECTED=3;
 	
+		public function pathAttachment () {
+		return "/images/courses/" . $this->picture;
+	}
+
 	public function category(){
 		   return $this->belongsTo(Category::class) //Un curso tiene pertenece a una categoria
 		   ->select('id','name');
@@ -70,8 +74,9 @@ class Course extends Model
 	public function teacher(){
 		return $this->belongsTo(Teacher::class);//Un curso pertenece a un maestro.
 	}
-
-
+	public function getCustomRatingAttribute () {
+		return $this->reviews->avg('rating');
+	}
 
 }
 
