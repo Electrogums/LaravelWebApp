@@ -47,28 +47,31 @@ class Course extends Model
     const REJECTED=3;
 	
 	public function category(){
-		   return $this->belongsTo(Category::class)
+		   return $this->belongsTo(Category::class) //Un curso tiene pertenece a una categoria
 		   ->select('id','name');
 	   }
 
     public function goals () {
-		return $this->hasMany(Goal::class)->select('id', 'course_id', 'goal');//uno a muchos
+		return $this->hasMany(Goal::class)->select('id', 'course_id', 'goal');//un curso tiene muchas metas
     }
-    	public function requirements () {
-		return $this->hasMany(Requirement::class)->select('id', 'course_id', 'requirement');//Uno a muchos
+    public function requirements () {
+		return $this->hasMany(Requirement::class)->select('id', 'course_id', 'requirement');//Uno curso tiene muchos requisitos
 	}
 	public function level(){
-		return $this->belongsTo(Level::class)->select('id','name');
+		return $this->belongsTo(Level::class)->select('id','name');// Un curso pertenece a un Nivel
 	}
-	public function review(){
-		return $this->belongsTo(Review::class)->select('id','user_id','course_id','rating','comment','created_at');
+	public function reviews(){
+		return $this->belongsTo(Review::class)->select('id','user_id','course_id','rating','comment','created_at'); // Un curso pertenece a una revisión
 	}
 
 	public function students(){
-		return $this->belongsToMany(Student::class);
+		return $this->belongsToMany(Student::class);//Un curso pertenece a muchos estudiantes 
 	}
 	public function teacher(){
-		return $this->belongsTo(Teacher::class);
+		return $this->belongsTo(Teacher::class);//Un curso pertenece a un maestro.
 	}
-	
+
+
+
 }
+

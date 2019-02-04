@@ -25,11 +25,11 @@ class CreateUsersTable extends Migration
             $table->unsignedInteger('role_id')->default(\App\Role::STUDENT);
             $table->foreign('role_id')->references('id')->on('roles');
             $table->string('name');
-            $table->string('last_name')->comment('last name of the user');
+            $table->string('last_name')->nullable();
             $table->string('slug');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
+            $table->string('password')->nullable();
             $table->string('picture')->nullable();
             $table->string('stripe_id')->nullable();
             $table->string('card_brand')->nullable();
@@ -51,7 +51,7 @@ class CreateUsersTable extends Migration
           $table->timestamp('ends_at')->nullable();
           $table->timestamps();
         });
-        Schema::create('user_social_account',function (Blueprint $table){
+        Schema::create('user_social_accounts',function (Blueprint $table){
           $table->increments('id');
           $table->unsignedInteger('user_id');
           $table->foreign('user_id')->references('id')->on('users');

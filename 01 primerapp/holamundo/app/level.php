@@ -25,6 +25,6 @@ use Illuminate\Database\Eloquent\Model;
 class level extends Model
 {
     public function courses () {
-    	return $this->hasMany(Course::class);
+    	return $this->hasOne(Course::class);//Un nivel tiene un cursos.
     }
 }
