@@ -43,6 +43,11 @@ class LoginController extends Controller
     public function redirectToProvider (string $driver) {
     	return Socialite::driver($driver)->redirect();
     }
+      public function logout (Request $request) {
+    	auth()->logout();
+    	session()->flush();
+    	return redirect('/login');
+    }
     public function handleProviderCallback (string $driver) {
         
     	if( ! request()->has('code') || request()->has('denied')) {
