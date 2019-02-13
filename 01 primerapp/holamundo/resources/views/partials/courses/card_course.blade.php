@@ -1,4 +1,3 @@
-<h1>   rating   {{ $course->custom_rating}}</h1>
 <div class="card card-01">
     <img
         class="card-img-top"

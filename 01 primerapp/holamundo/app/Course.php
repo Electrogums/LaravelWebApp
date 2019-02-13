@@ -44,12 +44,15 @@ class Course extends Model
 {
     const PUBLISHED=1;
     const PENDING=2;
-    const REJECTED=3;
+	const REJECTED=3;
 	
+		protected $withCount = ['reviews', 'students'];
 		public function pathAttachment () {
 		return "/images/courses/" . $this->picture;
 	}
-
+	public function getRouteKeyName() {
+		return 'slug';
+	}
 	public function category(){
 		   return $this->belongsTo(Category::class) //Un curso tiene pertenece a una categoria
 		   ->select('id','name');
@@ -75,6 +78,13 @@ class Course extends Model
 	}
 	public function getCustomRatingAttribute () {
 		  return $this->reviews->avg('rating');
+	}
+		public function relatedCourses () {
+		return Course::with('reviews')->whereCategoryId($this->category->id)
+			->where('id', '!=', $this->id)
+			->latest()
+			->limit(6)
+			->get();
 	}
 }
 
